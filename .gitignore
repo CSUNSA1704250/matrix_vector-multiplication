@@ -1,0 +1,6 @@
+# || General
+# IDE
+.vscode/
+
+# Executables
+*.out

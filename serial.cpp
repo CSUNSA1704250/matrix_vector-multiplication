@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 
-std::vector<int> multiply(std::vector<std::vector<int>>& A,
+std::vector<int> Multiply(std::vector<std::vector<int>>& A,
                           std::vector<int>& x) {
   int m = A.size();     // rows
   int n = A[0].size();  // columns
@@ -21,7 +21,7 @@ int main() {
   std::vector<std::vector<int>> A{{1, 2, 3}, {4, 5, 6}};
   std::vector<int> x{7, 8, 9};
 
-  std::vector<int> y = multiply(A, x);
+  std::vector<int> y = Multiply(A, x);
 
   for (auto yi : y) {
     std::cout << yi << std::endl;

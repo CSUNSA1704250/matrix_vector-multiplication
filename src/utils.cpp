@@ -9,6 +9,7 @@ void LoadVector(std::istream* s, std::vector<int>* vector) {
     vector->push_back(num);
   }
 }
+
 void LoadMatrix(std::istream* s, std::vector<std::vector<int>>* matrix) {
   std::string lineData;
 
@@ -17,7 +18,9 @@ void LoadMatrix(std::istream* s, std::vector<std::vector<int>>* matrix) {
     std::vector<int> row;
     std::stringstream lineStream(lineData);
 
-    while (lineStream >> d) row.push_back(d);
+    while (lineStream >> d) {
+      row.push_back(d);
+    }
 
     matrix->push_back(row);
   }

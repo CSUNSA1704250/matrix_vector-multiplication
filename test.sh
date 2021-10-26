@@ -16,5 +16,9 @@ make
 echo
 
 echo "> Calculate."
-echo "* * * * * * * 5x1"
+echo "* * * * * * * Serial: 5x1"
 bin/serial.out data/mat_5x4.txt data/mat_4x1.txt
+echo "* * * * * * * Processing1D: 5x1"
+bin/parallel.out data/mat_5x4.txt data/mat_4x1.txt
+echo "* * * * * * * Processing2D: 5x1"
+bin/parallel2D.out data/mat_5x4.txt data/mat_4x1.txt

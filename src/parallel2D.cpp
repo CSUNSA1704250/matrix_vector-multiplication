@@ -1,6 +1,9 @@
+#include <fstream>
 #include <iostream>
 #include <thread>
 #include <vector>
+
+#include "utils.cpp"
 
 void PartialResults(int a, int b, std::vector<int>& temp, int i) {
   temp[i] = a * b;
@@ -44,9 +47,22 @@ std::vector<int> ProcessOperation2D(std::vector<std::vector<int>>& A,
   return y;
 }
 
-int main() {
-  std::vector<std::vector<int>> A{{1, 2, 3}, {4, 5, 6}};
-  std::vector<int> x{7, 8, 9};
+int main(int argc, char* argv[]) {
+  if (argc != 3) {
+    std::cout << "Please follow template. Specify two files." << std::endl;
+    std::cout << "./serial.out <matrix_A> <vector_x>" << std::endl;
+
+    return EXIT_FAILURE;
+  }
+
+  std::ifstream is1(argv[1]);
+  std::ifstream is2(argv[2]);
+
+  std::vector<std::vector<int>> A;
+  LoadMatrix(&is1, &A);
+
+  std::vector<int> x;
+  LoadVector(&is2, &x);
 
   std::vector<int> y = ProcessOperation2D(A, x);
 

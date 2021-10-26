@@ -1,3 +1,4 @@
+#include <chrono>
 #include <fstream>
 #include <iostream>
 #include <thread>
@@ -62,11 +63,22 @@ int main(int argc, char* argv[]) {
   std::vector<int> x;
   LoadVector(&is2, &x);
 
+  auto start = std::chrono::steady_clock::now();
   std::vector<int> y = ProcessOperation1D(A, x);
+  auto end = std::chrono::steady_clock::now();
 
+  auto diff = end - start;
+
+  std::cout << "Elapsed time in milliseconds: "
+            << std::chrono::duration<double, std::milli>(diff).count()
+            << std::endl;
+  std::cout << std::endl;
+
+  /*
   for (auto yi : y) {
     std::cout << yi << std::endl;
   }
+  */
 
   return 0;
 }

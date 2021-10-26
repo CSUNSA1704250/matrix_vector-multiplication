@@ -10,15 +10,34 @@ if [ ! -f data/mat_4x1.txt ]; then
     python gen_matrix.py 4 1 > data/mat_4x1.txt
 fi
 
+if [ ! -f data/mat_1000x1000.txt ]; then
+    echo "generate 1000x1000 matrix..."
+    python gen_matrix.py 1000 1000 > data/mat_1000x1000.txt
+fi
+
+if [ ! -f data/mat_1000x1.txt ]; then
+    echo "generate 1000x1 vector..."
+    python gen_matrix.py 1000 1 > data/mat_1000x1.txt
+fi
+
 echo
 echo "> Compile source code."
 make
 echo
 
 echo "> Calculate."
-echo "* * * * * * * Serial: 5x1"
+echo "5x1"
+echo "* Serial:"
 bin/serial.out data/mat_5x4.txt data/mat_4x1.txt
-echo "* * * * * * * Processing1D: 5x1"
+echo "* Parallel:"
 bin/parallel.out data/mat_5x4.txt data/mat_4x1.txt
-echo "* * * * * * * Processing2D: 5x1"
+echo "* 2D partitioning:"
 bin/parallel2D.out data/mat_5x4.txt data/mat_4x1.txt
+echo
+echo "1000x1"
+echo "* Serial:"
+bin/serial.out data/mat_1000x1000.txt data/mat_1000x1.txt
+echo "* Parallel:"
+bin/parallel.out data/mat_1000x1000.txt data/mat_1000x1.txt
+#echo "* 2D partitioning:"
+#bin/parallel2D.out data/mat_1000x1000.txt data/mat_1000x1.txt

@@ -13,4 +13,4 @@ import random
 rows, columns = int(sys.argv[1]), int(sys.argv[2])
 
 for row in range(rows):
-    print(" ".join([str(random.randint(1, 100)) for col in range(columns)]))
+    print(" ".join([str(random.randint(1, 10)) for col in range(columns)]))

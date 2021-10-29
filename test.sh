@@ -20,6 +20,16 @@ if [ ! -f data/mat_1000x1.txt ]; then
     python gen_matrix.py 1000 1 > data/mat_1000x1.txt
 fi
 
+if [ ! -f data/mat_3000x2000.txt ]; then
+    echo "generate 3000x2000 matrix..."
+    python gen_matrix.py 3000 2000 > data/mat_3000x2000.txt
+fi
+
+if [ ! -f data/mat_2000x1.txt ]; then
+    echo "generate 2000x1 vector..."
+    python gen_matrix.py 2000 1 > data/mat_2000x1.txt
+fi
+
 echo
 echo "> Compile source code."
 make
@@ -39,5 +49,13 @@ echo "* Serial:"
 bin/serial.out data/mat_1000x1000.txt data/mat_1000x1.txt
 echo "* Parallel:"
 bin/parallel.out data/mat_1000x1000.txt data/mat_1000x1.txt
-#echo "* 2D partitioning:"
-#bin/parallel2D.out data/mat_1000x1000.txt data/mat_1000x1.txt
+echo "* 2D partitioning:"
+bin/parallel2D.out data/mat_1000x1000.txt data/mat_1000x1.txt
+echo
+echo "3000x1"
+echo "* Serial:"
+bin/serial.out data/mat_3000x2000.txt data/mat_2000x1.txt
+echo "* Parallel:"
+bin/parallel.out data/mat_3000x2000.txt data/mat_2000x1.txt
+echo "* 2D partitioning:"
+bin/parallel2D.out data/mat_3000x2000.txt data/mat_2000x1.txt

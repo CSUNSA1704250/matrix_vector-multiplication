@@ -6,8 +6,11 @@
 
 #include "utils.cpp"
 
-void PartialResults(int a, int b, std::vector<int>& temp, int i) {
-  temp[i] = a * b;
+void Multiply(std::vector<std::vector<int>>& A, int x, int j) {
+  int m = A.size();  // rows
+  for (int i = 0; i < m; i++) {
+    A[i][j] *= x;
+  }
 }
 
 std::vector<int> ProcessOperation2D(std::vector<std::vector<int>>& A,
@@ -15,19 +18,12 @@ std::vector<int> ProcessOperation2D(std::vector<std::vector<int>>& A,
   int m = A.size();
   int n = A[0].size();
 
-  // number of processes
-  int processes = m * n;
-
-  // temporal for partial results
-  std::vector<int> temp(processes, 0);
+  std::cout << n << x.size() << std::endl;
 
   // spawn threads
   std::vector<std::thread> pool_threads;
-  for (int i = 0; i < m; i++) {
-    for (int j = 0; j < n; j++) {
-      pool_threads.push_back(std::thread(PartialResults, A[i][j], x[j],
-                                         std::ref(temp), i * n + j));
-    }
+  for (int j = 0; j < n; j++) {
+    pool_threads.push_back(std::thread(Multiply, std::ref(A), x[j], j));
   }
 
   // sync threads
@@ -41,7 +37,7 @@ std::vector<int> ProcessOperation2D(std::vector<std::vector<int>>& A,
   // start reduction
   for (int i = 0; i < m; i++) {
     for (int j = 0; j < n; j++) {
-      y[i] += temp[i * n + j];
+      y[i] += A[i][j];
     }
   }
 
